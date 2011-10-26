@@ -1,8 +1,14 @@
 <?xml version='1.0' encoding='ISO-8859-1'?>
 <data>
-    <drivers id='1234' name='Sean' email='smonaghan@texeltek.com'/>
-    <cars id='1234' make='Subaru' model='Legacy'/>
-    <tracks id='1234' track_type_id='1' name='Atlanta' title='Atlanta Motor Speedway' length='1.54'/>
+    <drivers id='1' name='Pookie' email='pooke@example.org'/>
+    <cars id='1' make='Subaru' model='Legacy' year='2009'/>
+    <cars id='2' make='Subaru' model='Outback' year='2002'/>
+
+    <car_driver car_id="1" driver_id="1" />
+    <car_driver car_id="2" driver_id="1" />
+
+    <tracks id='1' track_type_id='1' name='Atlanta' title='Atlanta Motor Speedway' length='1.54'/>
+
     <track_types id='1' name='Short' description='An oval racetrack that is less than 1 mile in length.'/>
     <track_types id='2' name='Intermediate' description='An oval that is greater than 1 mile in length, but less than 2 miles in length.'/>
     <track_types id='3' name='Superspeedway' description='A racetrack that is greater than 2 miles in length.'/>

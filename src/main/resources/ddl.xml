@@ -19,6 +19,7 @@
                 primaryKey="true"/>
         <column name="make" type="VARCHAR" size="100"/>
         <column name="model" type="VARCHAR" size="100"/>
+        <column name="year" type="INTEGER" />
         <index name="make_idx">
             <index-column name="make"/>
         </index>
@@ -47,8 +48,8 @@
     </table>
 
     <table name="car_driver">
-        <column name="id" type="VARCHAR" required="true"
-                primaryKey="true"/>
+        <column name="id" type="INTEGER" required="true"
+                primaryKey="true" autoIncrement="true"/>
         <column name="driver_id" type="INTEGER" required="true"/>
         <column name="car_id" type="INTEGER" required="true"/>
     </table>
