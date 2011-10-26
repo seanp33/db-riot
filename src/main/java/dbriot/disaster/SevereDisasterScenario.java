@@ -28,17 +28,19 @@ public class SevereDisasterScenario implements DisasterScenario {
         initData(dbWorld);
 
         List<Db> databases = dbWorld.getDatabases();
+
         takeOffline(databases);
 
-        updateData(databases);
+        updateData(dbWorld);
 
+        bringAllOnline(databases);
     }
 
     private void initData(DbWorld dbWorld) {
         URL url = getClass().getResource("/SevereDisasterScenario_initial_data.xml");
         File data = new File(url.getFile());
 
-         List<Db> databases = dbWorld.getDatabases();
+        List<Db> databases = dbWorld.getDatabases();
         for (Db db : databases) {
             dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
         }
@@ -52,7 +54,19 @@ public class SevereDisasterScenario implements DisasterScenario {
         }
     }
 
-    private void updateData(List<Db> databases) {
+    private void bringAllOnline(List<Db> databases) {
+        for (Db db : databases) {
+            db.online();
+        }
+    }
 
+    private void updateData(DbWorld dbWorld) {
+        URL url = getClass().getResource("/SevereDisasterScenario_partial_data.xml");
+        File data = new File(url.getFile());
+
+        List<Db> databases = dbWorld.getDatabases();
+        for (Db db : databases) {
+            dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+        }
     }
 }
