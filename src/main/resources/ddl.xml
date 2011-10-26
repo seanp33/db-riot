@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE database SYSTEM "http://db.apache.org/torque/dtd/database.dtd">
+
+<database name="dbriot">
+
+    <table name="drivers">
+        <column name="id" type="VARCHAR" required="true"
+                primaryKey="true"/>
+        <column name="name" type="VARCHAR" size="100"/>
+        <column name="email" type="VARCHAR" size="100"/>
+        <column name="created" type="TIMESTAMP" required="false"/>
+        <index name="driver_name_idx">
+            <index-column name="name"/>
+        </index>
+    </table>
+
+    <table name="cars">
+        <column name="id" type="VARCHAR" required="true"
+                primaryKey="true"/>
+        <column name="make" type="VARCHAR" size="100"/>
+        <column name="model" type="VARCHAR" size="100"/>
+        <index name="make_idx">
+            <index-column name="make"/>
+        </index>
+    </table>
+
+    <table name="tracks">
+        <column name="id" type="VARCHAR" required="true"
+                primaryKey="true"/>
+        <column name="track_type_id" type="VARCHAR" size="100"/>
+        <column name="name" type="VARCHAR" size="100"/>
+        <column name="title" type="VARCHAR" size="100"/>
+        <column name="length" type="VARCHAR" size="100"/>
+        <index name="track_name_idx">
+            <index-column name="name"/>
+        </index>
+    </table>
+
+    <table name="track_types">
+        <column name="id" type="VARCHAR" required="true"
+                primaryKey="true"/>
+        <column name="name" type="VARCHAR" size="100"/>
+        <column name="description" type="VARCHAR" size="500"/>
+        <index name="track_type_description_idx">
+            <index-column name="description"/>
+        </index>
+    </table>
+
+    <table name="car_driver">
+        <column name="id" type="VARCHAR" required="true"
+                primaryKey="true"/>
+        <column name="driver_id" type="INTEGER" required="true"/>
+        <column name="car_id" type="INTEGER" required="true"/>
+    </table>
+
+</database>

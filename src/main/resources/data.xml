@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+<data>
+    <drivers id='1234' name='Sean' email='smonaghan@texeltek.com'/>
+    <cars id='1234' make='Subaru' model='Legacy'/>
+    <tracks id='1234' track_type_id='1' name='Atlanta' title='Atlanta Motor Speedway' length='1.54'/>
+    <track_types id='1' name='Short' description='An oval racetrack that is less than 1 mile in length.'/>
+    <track_types id='2' name='Intermediate' description='An oval that is greater than 1 mile in length, but less than 2 miles in length.'/>
+    <track_types id='3' name='Superspeedway' description='A racetrack that is greater than 2 miles in length.'/>
+    <track_types id='4' name='Road Course' description='A racing circuit comprised of left- and right-hand turns, as opposed to an oval which is comprised exclusively of left-hand turns.'/>
+</data>
+
+
