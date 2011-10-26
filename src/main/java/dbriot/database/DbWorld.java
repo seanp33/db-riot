@@ -68,26 +68,25 @@ public class DbWorld {
         ds.setUsername(HSQLDB_USERNAME);
         ds.setPassword(HSQLDB_PASSWORD);
         Db db = new Db(ds);
-        initDatabase(ds);
+        initDatabase(db);
         return db;
     }
 
-    private void initDatabase(BasicDataSource ds) {
+    private void initDatabase(Db db) {
         Platform platform = PlatformFactory
-                .createNewPlatformInstance(ds);
+                .createNewPlatformInstance(db.getDatasource());
 
         Database database = new DatabaseIO().read(new InputStreamReader(
                 getClass().getResourceAsStream("/ddl.xml")));
 
         platform.alterTables(database, false);
 
-        initData(database, ds);
     }
 
-    private void initData(Database database, BasicDataSource ds) {
+    public void populateDatabase(Db db, File data, String modelname) {
 
-        URL url = getClass().getResource("/data.xml");
-        File data = new File(url.getFile());
+        Database database = db.getDatabase();
+        BasicDataSource ds = db.getDatasource();
 
         WriteDataToDatabaseCommand subTask = new WriteDataToDatabaseCommand();
         subTask.setDataFile(data);
@@ -99,21 +98,9 @@ public class DbWorld {
         task.setProject(new Project());
         task.addConfiguredDatabase(ds);
         task.addWriteDataToDatabase(subTask);
-        task.setModelName("raceday");
+        task.setModelName(modelname);
         task.execute();
 
-        /*
-        Map<String, Object> driverData = new HashMap<String, Object>();
-        driverData.put("id", Util.getUUID());
-        driverData.put("name", "Driver1");
-        driverData.put("email", "driver1@drivers.foo");
-
-        driverData.put("id", Util.getUUID());
-        driverData.put("name", "Driver2");
-        driverData.put("email", "driver2@drivers.foo");
-
-        db.insert(DbTable.DRIVERS, driverData);
-        */
     }
 
 }

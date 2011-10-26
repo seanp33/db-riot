@@ -1,9 +1,14 @@
 package dbriot.disaster;
 
+import dbriot.Util;
 import dbriot.database.Db;
 import dbriot.database.DbWorld;
 
+import java.io.File;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: sean
@@ -13,17 +18,41 @@ import java.util.List;
 public class SevereDisasterScenario implements DisasterScenario {
 
     /**
-     * Takes all but one Ds offline and updates data
+     * Takes all but one Dbs offline and updates data
+     *
      * @param dbWorld
      */
     @Override
     public void execute(DbWorld dbWorld) {
-        List<Db> databases = dbWorld.getDatabases();
-        int offline = databases.size() - 2;
 
+        initData(dbWorld);
+
+        List<Db> databases = dbWorld.getDatabases();
+        takeOffline(databases);
+
+        updateData(databases);
+
+    }
+
+    private void initData(DbWorld dbWorld) {
+        URL url = getClass().getResource("/SevereDisasterScenario_initial_data.xml");
+        File data = new File(url.getFile());
+
+         List<Db> databases = dbWorld.getDatabases();
+        for (Db db : databases) {
+            dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+        }
+    }
+
+    private void takeOffline(List<Db> databases) {
+        int offline = databases.size() - 2;
         for (int i = 0; i < offline; i++) {
             Db db = databases.get(i);
             db.offline();
         }
+    }
+
+    private void updateData(List<Db> databases) {
+
     }
 }

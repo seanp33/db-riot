@@ -32,8 +32,20 @@ public class Db {
         status = DbStatus.ONLINE;
     }
 
+    public DbStatus getStatus() {
+        return status;
+    }
+
     public BasicDataSource getDatasource() {
         return datasource;
+    }
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public Platform getPlatform() {
+        return platform;
     }
 
     public void offline() {
@@ -60,53 +72,13 @@ public class Db {
         return status == DbStatus.RECOVERING;
     }
 
-    public void insert(DbTable table, Map<String, Object> values) {
-
+    public void insert(String table, Map<String, Object> values) {
         if (isOnline()) {
-            DynaBean dynaBean = database.createDynaBeanFor(table.getName(), false);
+            DynaBean dynaBean = database.createDynaBeanFor(table, false);
             for (Map.Entry<String, Object> entry : values.entrySet()) {
                 dynaBean.set(entry.getKey().toUpperCase(), entry.getValue());
             }
             platform.insert(database, dynaBean);
-        }
-    }
-
-    public void findAnd(DbTable table, Map<String, Object> values) {
-        if (isOnline()) {
-            // TODO
-            /*
-            String tableName = table.getName();
-            List<String> params = new ArrayList<String>();
-            params.add("Some title");
-            Iterator it = platform.query(database,
-                    "select * from + " + tableName + " +  where title = ?",
-                    params,
-                    new Table[]{database.findTable(tableName)});
-
-            while (it.hasNext()) {
-                DynaBean book = (DynaBean) it.next();
-                System.out.println(book.get("title"));
-            }
-            */
-        }
-
-    }
-
-    public void findOr(DbTable table, Map<String, Object> values) {
-        if (isOnline()) {
-            // TODO
-        }
-    }
-
-    public void update(DbTable table, Map<String, Object> values) {
-        if (isOnline()) {
-            // TODO
-        }
-    }
-
-    public void delete(DbTable table, Map<String, Object> values) {
-        if (isOnline()) {
-            // TODO
         }
     }
 }

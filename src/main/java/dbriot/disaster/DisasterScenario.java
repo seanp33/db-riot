@@ -9,6 +9,6 @@ import dbriot.database.DbWorld;
  */
 public interface DisasterScenario {
 
-    public void execute(DbWorld dbWorld);
+    void execute(DbWorld dbWorld);
 
 }
