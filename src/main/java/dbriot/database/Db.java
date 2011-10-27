@@ -5,8 +5,14 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.ddlutils.Platform;
 import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.model.Database;
+import org.hsqldb.util.SqlTool;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * User: sean
@@ -64,11 +70,11 @@ public class Db {
         return status == DbStatus.ONLINE;
     }
 
-    public void recover(){
+    public void recover() {
         status = DbStatus.RECOVERING;
     }
 
-    public boolean isRecovering(){
+    public boolean isRecovering() {
         return status == DbStatus.RECOVERING;
     }
 
@@ -79,6 +85,19 @@ public class Db {
                 dynaBean.set(entry.getKey().toUpperCase(), entry.getValue());
             }
             platform.insert(database, dynaBean);
+        }
+    }
+
+    public String dump(String path) {
+        try {
+            Connection conn = datasource.getConnection();
+            String dumpFile = UUID.randomUUID().toString() + "-dump.sql";
+            Statement stmt = conn.createStatement();
+            stmt.execute("SCRIPT '" + path + "/" + dumpFile + "'");
+            return dumpFile;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

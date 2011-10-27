@@ -33,7 +33,6 @@ public class SevereDisasterScenario implements DisasterScenario {
 
         updateData(dbWorld);
 
-        bringAllOnline(databases);
     }
 
     private void initData(DbWorld dbWorld) {
@@ -51,12 +50,6 @@ public class SevereDisasterScenario implements DisasterScenario {
         for (int i = 0; i < offline; i++) {
             Db db = databases.get(i);
             db.offline();
-        }
-    }
-
-    private void bringAllOnline(List<Db> databases) {
-        for (Db db : databases) {
-            db.online();
         }
     }
 

@@ -4,8 +4,8 @@ package dbriot;
 import dbriot.database.DbWorld;
 import dbriot.disaster.DisasterScenario;
 import dbriot.disaster.SevereDisasterScenario;
-import dbriot.recovery.JGitRecoverStrategy;
-import dbriot.recovery.RecoverStrategy;
+import dbriot.recovery.GoogleDiffRecoveryStrategy;
+import dbriot.recovery.RecoveryStrategy;
 
 import java.sql.SQLException;
 
@@ -23,8 +23,8 @@ public class DbRiot {
         DisasterScenario severeDisasterScenario = new SevereDisasterScenario();
         severeDisasterScenario.execute(dbWorld);
 
-        RecoverStrategy jGitRecoverStrategy = new JGitRecoverStrategy();
-        System.out.println("Success? " + jGitRecoverStrategy.execute(dbWorld));
+        RecoveryStrategy googleDiffRecoveryStrategy = new GoogleDiffRecoveryStrategy();
+        System.out.println("Success? " + googleDiffRecoveryStrategy.execute(dbWorld));
     }
 
     public void destroy() throws SQLException {
