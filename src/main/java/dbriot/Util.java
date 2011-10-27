@@ -11,6 +11,8 @@ public class Util {
 
     private static String lastId;
 
+    public static String tmpDir = System.getProperty("java.io.tmpdir");
+
     public static String getUUID(){
         lastId = UUID.randomUUID().toString();
         return lastId;

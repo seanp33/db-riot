@@ -7,6 +7,8 @@ import org.apache.ddlutils.PlatformFactory;
 import org.apache.ddlutils.model.Database;
 import org.hsqldb.util.SqlTool;
 
+import java.io.File;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -88,14 +90,14 @@ public class Db {
         }
     }
 
-    public String dump(String path) {
+    public File dump(String path) {
         try {
             Connection conn = datasource.getConnection();
-            String dumpFile = UUID.randomUUID().toString() + "-dump.sql";
+            String loc =  path + "/" +  UUID.randomUUID().toString() + "-dump.sql";
             Statement stmt = conn.createStatement();
-            stmt.execute("SCRIPT '" + path + "/" + dumpFile + "'");
-            return dumpFile;
-        } catch (SQLException e) {
+            stmt.execute("SCRIPT '" + loc + "'");
+            return new File(loc);
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

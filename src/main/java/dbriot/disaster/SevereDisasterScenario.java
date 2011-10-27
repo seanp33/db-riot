@@ -59,7 +59,9 @@ public class SevereDisasterScenario implements DisasterScenario {
 
         List<Db> databases = dbWorld.getDatabases();
         for (Db db : databases) {
-            dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+            if (db.isOnline()) {
+                dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+            }
         }
     }
 }
