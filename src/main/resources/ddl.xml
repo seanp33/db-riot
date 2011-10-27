@@ -33,7 +33,6 @@
         <column name="name" type="VARCHAR" size="100"/>
         <column name="title" type="VARCHAR" size="100"/>
         <column name="length" type="VARCHAR" size="100"/>
-        <column name="created" type="TIMESTAMP" required="false"/>
         <index name="track_name_idx">
             <index-column name="name"/>
         </index>
@@ -44,7 +43,6 @@
                 primaryKey="true"/>
         <column name="name" type="VARCHAR" size="100"/>
         <column name="description" type="VARCHAR" size="500"/>
-        <column name="created" type="TIMESTAMP" required="false"/>
         <index name="track_type_description_idx">
             <index-column name="description"/>
         </index>
@@ -55,7 +53,6 @@
                 primaryKey="true" autoIncrement="true"/>
         <column name="driver_id" type="INTEGER" required="true"/>
         <column name="car_id" type="INTEGER" required="true"/>
-        <column name="created" type="TIMESTAMP" required="false"/>
     </table>
 
 </database>
