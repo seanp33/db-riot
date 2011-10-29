@@ -33,11 +33,20 @@ public class DbWorld {
     public static final String HSQLDB_PASSWORD = "";
 
     private List<Db> databases;
-
+    private int count;
+    
     public DbWorld() {
     }
 
-    public List<Db> getDatabases() {
+    public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public List<Db> getDatabases() {
         return databases;
     }
 
@@ -45,6 +54,10 @@ public class DbWorld {
         return databases.get(Util.randRange(0, databases.size() - 1));
     }
 
+    public List<Db> init() {
+    	return init(count);
+    }
+    
     public List<Db> init(int count) {
         databases = new ArrayList<Db>();
 
