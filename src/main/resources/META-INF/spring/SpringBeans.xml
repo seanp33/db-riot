@@ -23,4 +23,6 @@
 	
 	<bean id="googleDiffRecoveryStrategy" class="dbriot.recovery.GoogleDiffRecoveryStrategy"></bean>
 	<bean id="gitRecoveryStrategy" class="dbriot.recovery.GitRecoveryStrategy"></bean>
+	
+	<bean id="recoveryService" class="dbriot.services.RecoveryServiceImpl"></bean>
 </beans>

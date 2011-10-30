@@ -54,7 +54,7 @@ public class DbRiot {
 
 	public static void main(String args[]) {
     	
-    	String contextFile = "SpringBeans.xml";
+    	String contextFile = "META-INF/spring/SpringBeans.xml";
     	if (args.length != 0){
     		contextFile = args[0];
     	}
