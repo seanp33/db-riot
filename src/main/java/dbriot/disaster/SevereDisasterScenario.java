@@ -1,6 +1,7 @@
 package dbriot.disaster;
 
 import dbriot.Util;
+import dbriot.database.DBFactory;
 import dbriot.database.Db;
 import dbriot.database.DbWorld;
 
@@ -41,7 +42,7 @@ public class SevereDisasterScenario implements DisasterScenario {
 
         List<Db> databases = dbWorld.getDatabases();
         for (Db db : databases) {
-            dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+            DBFactory.populateDatabase(db, data, "SevereDisasterScenario");
         }
     }
 
@@ -60,7 +61,7 @@ public class SevereDisasterScenario implements DisasterScenario {
         List<Db> databases = dbWorld.getDatabases();
         for (Db db : databases) {
             if (db.isOnline()) {
-                dbWorld.populateDatabase(db, data, "SevereDisasterScenario");
+                DBFactory.populateDatabase(db, data, "SevereDisasterScenario");
             }
         }
     }

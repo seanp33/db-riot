@@ -18,7 +18,7 @@ public class DbRiot {
 
     public void init() {
         dbWorld = new DbWorld();
-        dbWorld.init(10);
+        dbWorld.init(10, "/ddl.xml");
 
         DisasterScenario severeDisasterScenario = new SevereDisasterScenario();
         severeDisasterScenario.execute(dbWorld);

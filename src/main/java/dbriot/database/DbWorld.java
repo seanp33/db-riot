@@ -12,7 +12,9 @@ import org.apache.ddlutils.task.WriteDataToDatabaseCommand;
 import org.apache.tools.ant.Project;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -45,11 +47,17 @@ public class DbWorld {
         return databases.get(Util.randRange(0, databases.size() - 1));
     }
 
-    public List<Db> init(int count) {
+    public List<Db> init(int count, String ddlClasspathFile) {
         databases = new ArrayList<Db>();
 
         for (int i = 0; i < count; i++) {
-            databases.add(createDatabase(HSQLDB_ROOT + i));
+            try {
+                Db db = DBFactory.createDatabase(HSQLDB_ROOT + i, HSQLDB_DRIVER, HSQLDB_USERNAME, HSQLDB_PASSWORD);
+                DBFactory.initDatabase(db, new InputStreamReader(getClass().getResourceAsStream(ddlClasspathFile)));
+                databases.add(db);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
         return databases;
@@ -60,47 +68,4 @@ public class DbWorld {
             db.getDatasource().close();
         }
     }
-
-    private Db createDatabase(String url) {
-        BasicDataSource ds = new BasicDataSource();
-        ds.setUrl(url);
-        ds.setDriverClassName(HSQLDB_DRIVER);
-        ds.setUsername(HSQLDB_USERNAME);
-        ds.setPassword(HSQLDB_PASSWORD);
-        Db db = new Db(ds);
-        initDatabase(db);
-        return db;
-    }
-
-    private void initDatabase(Db db) {
-        Platform platform = PlatformFactory
-                .createNewPlatformInstance(db.getDatasource());
-
-        Database database = new DatabaseIO().read(new InputStreamReader(
-                getClass().getResourceAsStream("/ddl.xml")));
-
-        platform.alterTables(database, false);
-
-    }
-
-    public void populateDatabase(Db db, File data, String modelname) {
-
-        Database database = db.getDatabase();
-        BasicDataSource ds = db.getDatasource();
-
-        WriteDataToDatabaseCommand subTask = new WriteDataToDatabaseCommand();
-        subTask.setDataFile(data);
-        subTask.setFailOnError(true);
-        subTask.setUseBatchMode(false);
-        subTask.setEnsureForeignKeyOrder(false);
-
-        DatabaseToDdlTask task = new DatabaseToDdlTask();
-        task.setProject(new Project());
-        task.addConfiguredDatabase(ds);
-        task.addWriteDataToDatabase(subTask);
-        task.setModelName(modelname);
-        task.execute();
-
-    }
-
 }
